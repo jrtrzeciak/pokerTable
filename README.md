@@ -4,6 +4,8 @@ Justin Trzeciak 2012
 The code controls digitially addressable RGB LEDs through a web interface using an Arduino
 microcontroller.
 
+Photos and a detailed description can be found at http://jrtrzeciak.wordpress.com/
+
 A LICENSE file is included with the documentation. My intention is that anyone can use
 this code for their own use. However, the code should always remain free for others
 to use, share, and change.
