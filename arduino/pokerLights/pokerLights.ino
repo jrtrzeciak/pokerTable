@@ -49,6 +49,9 @@ IPAddress gateway(192,168,2, 1);
 IPAddress subnet(255, 255, 255, 0);
 int port = 1234;
 
+int i;
+char buffer[54];  //Used to accept the packet from the web page
+
 EthernetServer server(port);
 boolean gotAMessage = false; // whether or not you got a message from the web page yet
 
@@ -91,9 +94,6 @@ void setup() {
 }
 
 void loop() {
-  
-  int i;
-  char buffer[54];
   
   digitalWrite(greenLed, HIGH);			//Simply indicates the controller is on
   digitalWrite(redLed, LOW);			//Only turns on when manual mode is set

@@ -13,7 +13,7 @@
 <h2>RGB Set Mode</h2>
 <a href="http://www.w3schools.com/tags/ref_colorpicker.asp" target="_blank">Color Picker</a>
 <a href="index.php">Manual Set Mode</a>
-<a href="rgb.php">Tournament Mode</a>
+<a href="tournament.php">Tournament Mode</a>
 <form oninput="brightout.value=parseInt(brightin.value)" action="">
 	<div id="top_forms">
 		<label class="label" for="program">Program: </label>
