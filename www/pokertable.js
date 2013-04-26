@@ -1,45 +1,4 @@
-// This function passes the color, brightness, and program data to the server side code from the index page.
-// A status code is then returned from the code to be displayed on the web page beneath the respective form.
-
-$(function() {
-	$("#submit").click(function() {
-
-		//Gather values from page when submit is clicked
-		var seat = new Array();
-		var program = $("select#program").val();
-		var brightin = $("input#brightin").val();
-		seat[1] = $("select#seat1").val();
-		seat[2] = $("select#seat2").val();
-		seat[3] = $("select#seat3").val();
-		seat[4] = $("select#seat4").val();
-		seat[5] = $("select#seat5").val();
-		seat[6] = $("select#seat6").val();
-		seat[7] = $("select#seat7").val();
-		seat[8] = $("select#seat8").val();
-
-		//Acknowledge pressing of the button
-		$('#status').html("Sending...");
-		$(this).css("background-color","white");
-		
-		//Assemble a data packet to send to the server side code
-		var dataString = "program="+program+"&brightin="+brightin+"&seat1="+seat[1]+"&seat2="+seat[2]+"&seat3="+seat[3]+"&seat4="+seat[4]+"&seat5="+seat[5]+"&seat6="+seat[6]+"&seat7="+seat[7]+"&seat8="+seat[8];
-
-		$.ajax({
-			type: "POST",					//Send as POST
-			url: "pokertable.php",			//To server side code
-			data: dataString,				//Send the data from the page
-			datatype: 'html',				//As HTML
-			success: function(data) {		//Acknowledge completion of delivery
-				$('#status').html("Submission Complete");
-				//$('#status').html(data);
-				$('#submit').css("background-color","#0D1122");
-			}
-		});
-		return false;
-	});
-});
-
-// This function passes the color, brightness, and program data to the server side code from the rgb page.
+// This function passes the color, brightness, and program data to the server side code from the rgb/index page.
 // A status code is then returned from the code to be displayed on the web page beneath the respective form.
 
 $(function() {
@@ -48,14 +7,14 @@ $(function() {
 		//Gather values from page when submit is clicked
 		var program = $("select#program").val();
 		var brightin = $("input#brightin").val();
-		var seat1 = $("input#seat1").val();
-		var seat2 = $("input#seat2").val();
-		var seat3 = $("input#seat3").val();
-		var seat4 = $("input#seat4").val();
-		var seat5 = $("input#seat5").val();
-		var seat6 = $("input#seat6").val();
-		var seat7 = $("input#seat7").val();
-		var seat8 = $("input#seat8").val();
+		var seat1 = $("input#seat1").val().substring(1);
+		var seat2 = $("input#seat2").val().substring(1);
+		var seat3 = $("input#seat3").val().substring(1);
+		var seat4 = $("input#seat4").val().substring(1);
+		var seat5 = $("input#seat5").val().substring(1);
+		var seat6 = $("input#seat6").val().substring(1);
+		var seat7 = $("input#seat7").val().substring(1);
+		var seat8 = $("input#seat8").val().substring(1);
 
 		//Acknowledge pressing of the button
 		$('#status').html("Sending...");
@@ -70,33 +29,13 @@ $(function() {
 			data: dataString,				//Send the data from the page
 			datatype: 'html',				//As HTML
 			success: function(data) {		//Acknowledge completion of delivery
-				$('#status').html("Submission Complete");
-				//$('#status').html(data);
+				//$('#status').html("Submission Complete");
+				$('#status').html(data);
 				$('#submit_r').css("background-color","#0D1122");
 			}
 		});
 		return false;
 	});
-});
-
-// This function changes the seat colors based on what is selected.
-
-$(document).ready(function() {
-	//When a seat color is changed, change the background color of the div, using the classes in css
-	$('select.seat').change(function (){
-		$(this).removeClass('FF0000 FFFF00 00FF00 00FFFF 0000FF FF00FF FFFFFF 000000').addClass($(this).find('option:selected').val());
-		$(this.parentNode).removeClass('FF0000 FFFF00 00FF00 00FFFF 0000FF FF00FF FFFFFF 000000').addClass($(this).find('option:selected').val());
-	}).change();
-	//When a new hex code is typed, change the color of the input box.
-	$('input.color-input').change(function (){
-		var backColor = "#" + $(this).val();		//CSS requires a # in front of the hex code.
-		$(this.parentNode).css("background-color",backColor);
-	}).change();
-	//When a new hex code is typed, change the color of the input box.
-	$('input.top-color-input').change(function (){
-		var backColor = "#" + $(this).val();		//CSS requires a # in front of the hex code.
-		$(this).css("background-color",backColor);
-	}).change();
 });
 
 //This function moves the radio button to the next active seat on the tournament page
@@ -133,18 +72,19 @@ function setColor(index, attribute)
 	//Change the div color of the specified seat accordingly
 	$('input:radio[value='+index+']').change(function (){
 		$(this).removeClass('dealer sm_blind big_blind active inactive')	//remove old seat type
-		var backColor = "#" + color;		//CSS requires a # in front of the hex code.
+		var backColor = color;		//CSS requires a # in front of the hex code.
 		$(this).css("background-color",backColor);			//add new color based on the input boxes
-		$(this.parentNode).css("background-color",backColor);
+		$(this).parent().css("background-color",backColor);
 		$(this).addClass(attribute);						//add new seat type from function call
 	}).change();
-	return color;		//return the color to be passed along to the server, then controller
+	return color.substring(1);		//return the color to be passed along to the server, then controller
 }
 
 //This function passes the active seat and dealer and blind colors to the server side code from the tournament page.
 $(function() {
 	$("#submit_t").click(function() {
 		
+		var i;
 		//Set up variables for the different seat types
 		var deal_pos;
 		var sm_blind_pos;
@@ -272,8 +212,8 @@ $(function() {
 			data: dataString,				//Send the data from the page
 			datatype: 'html',				//As HTML
 			success: function(data) {		//Acknowledge completion of delivery
-			$('#status').html("Submission Complete");
-			//$('#status').html(data);
+			//$('#status').html("Submission Complete");
+			$('#status').html(data);
 			$('#submit_t').css("background-color","#0D1122");
 			}
 		});

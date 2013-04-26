@@ -4,56 +4,15 @@
 <title>Poker Table Light Controller</title>
 <meta name = "viewport" content = "width = device-width">
 <script language="javascript" type="text/javascript" src="jquery.js"></script>
-<script src='spectrum.js'></script>
 <script language="javascript" type="text/javascript" src="pokertable.js"></script>
-<link rel='stylesheet' href='spectrum.css' />
 <link type="text/css" href="pokertable.css" rel="stylesheet">
-<script>
-$(document).ready(function() {
-	var i;	//Set up counter variable.
-	//For each seat, initialize color value and parameters for color picker.
-	for(i=1; i<9; i++)
-	{
-		$("#seat"+i).spectrum({
-    		color: "#000000",			//initialize color in the color picker
-    		clickoutFiresChange: true,	//allow clicking out to choose color
-    		preferredFormat: "hex6",	//make sure the format is #xxxxxx
-    		showInput: true,			//show the input for the hell of it
-    		showPalette: true,			//show standard colors to pick from
-    		showSelectionPalette: true,	//show previously picked colors
-    		palette: [
-        		['red', 'yellow', 'lime'],
-        		['aqua', 'blue', 'fuchsia'],
-        		['white', 'grey', 'black']
-    		],
-    		change: function() {
-    			backColor();
-			}
-		});
-		$("input#seat"+i).val('#000000');	//initialize the color in the input
-	}
-	
-	backColor();	//Initialize the background colors when the page loads
-	
-	function backColor()
-	{
-		var s = new Array();
-		var t = new Array();
-		for(i=1; i<9; i++)
-		{
-			s[i] = $("#seat"+i).spectrum("get");
-			t[i] = s[i].toHexString();
-			$('#seat'+i+'-container').css("background-color",t[i]);
-		}
-	}
-});
-</script>
 </head>
 <body>
 
 <h1>Poker Table Light Controller</h1>
 <h2>RGB Set Mode</h2>
-<a href="http://bgrins.github.com/spectrum" target="_blank">jQuery Color Picker</a>
+<a href="http://www.w3schools.com/tags/ref_colorpicker.asp" target="_blank">Color Picker</a>
+<a href="index.php">Manual Set Mode</a>
 <a href="tournament.php">Tournament Mode</a>
 <form oninput="brightout.value=parseInt(brightin.value)" action="">
 	<div id="top_forms">
@@ -78,7 +37,7 @@ $(document).ready(function() {
 				"
 					<div id='seat{$i}-container' class='seat-container'>
 						<label for='seat{$i}'>Seat {$i}</label><br />
-						<input name='seat{$i}' id='seat{$i}' class='color-input'>
+						<input name='seat{$i}' id='seat{$i}' class='color-input' value='000000'>
 					</div>
 				";
 			}

@@ -11,10 +11,7 @@
 
 <h1>Poker Table Light Controller</h1>
 <h2>Tournament Mode</h2>
-<a href="http://www.w3schools.com/tags/ref_colorpicker.asp" target="_blank">Color Picker</a>
-<a href="index.php">Manual Set Mode</a>
-<a href="rgb.php">RGB Set Mode</a>
-<form action="">
+<form oninput="brightout.value=parseInt(brightin.value)" action="">
 	<div id="top_forms_t">
 		<?php 
 			$position[0] = 'dealer';
@@ -33,10 +30,22 @@
 				echo	
 				"
 					<label class='label' for='{$position[$i]}'>{$position[$i+5]}</label>
-					<input name='{$position[$i]}' id='{$position[$i]}' class='top-color-input' value='000000'>
+					<select class='top_select' name='{$position[$i]}' id='{$position[$i]}'>
+						<option class='000000' value='000000'>Off</option>
+						<option class='FF0000' value='FF0000'>Red</option>
+						<option class='FFFF00' value='FFFF00'>Yellow</option>
+						<option class='00FF00' value='00FF00'>Green</option>
+						<option class='00FFFF' value='00FFFF'>Teal</option>
+						<option class='0000FF' value='0000FF'>Blue</option>
+						<option class='FF00FF' value='FF00FF'>Purple</option>
+						<option class='FFFFFF' value='FFFFFF'>White</option>
+					</select>
 				";
 			}
 		?>
+		<label class="label" for="brightin">Brightness: </label>
+		<input type="range" name="brightin" min="1" max="127" id="brightin" />
+		<output name="brightout" id="brightout" for="brightin"></output><br />
 	</div>
 	<div id="table">
 		<?php 
