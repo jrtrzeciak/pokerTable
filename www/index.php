@@ -39,11 +39,26 @@ $(document).ready(function() {
 	{
 		var s = new Array();
 		var t = new Array();
+		var u = new Array();
 		for(i=1; i<9; i++)
 		{
-			s[i] = $("#seat"+i).spectrum("get");
-			t[i] = s[i].toHexString();
+			s[i] = $("#seat"+i).spectrum("get");	//Get the color from spectrum
+			t[i] = s[i].toHexString();				//Convert to Hex for Css
+			u[i] = s[i].toRgb();	//Convert to Rgb to figure out relative brightness
+			//Change the background color based on the input
 			$('#seat'+i+'-container').css("background-color",t[i]);
+			//If the background is relatively bright, make the text and border black.
+			if (u[i].r+u[i].g+u[i].b >= 255*3/2)
+			{
+				$('#seat'+i+'-container').css("color",'black');
+				$('#seat'+i+'-container').css("border-color",'black');
+			}
+			//Otherwise, keep it white.
+			else
+			{
+				$('#seat'+i+'-container').css("color",'white');
+				$('#seat'+i+'-container').css("border-color",'white');
+			}
 		}
 	}
 });

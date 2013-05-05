@@ -77,6 +77,20 @@ function setColor(index, attribute)
 		$(this).parent().css("background-color",backColor);
 		$(this).addClass(attribute);						//add new seat type from function call
 	}).change();
+	s = $("#"+attribute).spectrum("get");	//Get the color from spectrum
+	u = s.toRgb();	//Convert to Rgb to figure out relative brightness
+	//If the background is relatively bright, make the text and border black.
+	if (u.r+u.g+u.b >= 255*3/2)
+	{
+		$('#seat'+index+'-container').css("color",'black');
+		$('#seat'+index+'-container').css("border-color",'black');
+	}
+	//Otherwise, keep it white.
+	else
+	{
+		$('#seat'+index+'-container').css("color",'white');
+		$('#seat'+index+'-container').css("border-color",'white');
+	}
 	return color.substring(1);		//return the color to be passed along to the server, then controller
 }
 
